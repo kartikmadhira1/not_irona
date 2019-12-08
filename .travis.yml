@@ -72,6 +72,7 @@ before_install:
   - sudo apt-get install ros-$ROS_DISTRO-ros-base --allow-unauthenticated
   - sudo apt-get install ros-$ROS_DISTRO-move-base ros-$ROS_DISTRO-move-base ros-$ROS_DISTRO-std-msgs ros-$ROS_DISTRO-sensor-msgs ros-$ROS_DISTRO-geometry-msgs --allow-unauthenticated
   - source /opt/ros/$ROS_DISTRO/setup.bash
+  - sudo apt-get install ros-$ROS_DISTRO-python-qt-binding --allow-unauthenticated
   # Prepare rosdep to install dependencies.
   - sudo rosdep init
   - rosdep update
