@@ -76,10 +76,10 @@ before_install:
   - sudo -H apt-get install -y ros-kinetic-urdf-geometry-parser --allow-unauthenticated
   - sudo -H apt-get install -y ros-kinetic-humanoid-nav-msgs --allow-unauthenticated
   - sudo -H apt-get install -y ros-kinetic-carrot-planner --allow-unauthenticated
-  - sudo ros-kinetic-control-msgs ros-kinetic-control-toolbox --allow-unauthenticated
-  - sudo ros-kinetic-kdl-conversions ros-kinetic-orocos-kdl --allow-unauthenticated
-  - sudo ros-kinetic-python-orocos-kdl ros-kinetic-realtime-tools --allow-unauthenticated
-  - sudo ros-kinetic-tf-conversions --allow-unauthenticated
+  # - sudo -H ros-kinetic-control-msgs ros-kinetic-control-toolbox --allow-unauthenticated
+  # - sudo -H ros-kinetic-kdl-conversions ros-kinetic-orocos-kdl --allow-unauthenticated
+  # - sudo -H ros-kinetic-python-orocos-kdl ros-kinetic-realtime-tools --allow-unauthenticated
+  - sudo -H ros-kinetic-eband-local-planner --allow-unauthenticated
   # Prepare rosdep to install dependencies.
   - sudo rosdep init
   - rosdep update
