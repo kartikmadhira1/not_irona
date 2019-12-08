@@ -75,6 +75,7 @@ before_install:
   - sudo apt-get install ros-$ROS_DISTRO-python-qt-binding --allow-unauthenticated
   - sudo -H apt-get install -y ros-kinetic-urdf-geometry-parser --allow-unauthenticated
   - sudo -H apt-get install -y ros-kinetic-humanoid-nav-msgs --allow-unauthenticated
+  - sudo -H apt-get install -y ros-kinetic-carrot-planner --allow-unauthenticated
   # Prepare rosdep to install dependencies.
   - sudo rosdep init
   - rosdep update
