@@ -31,4 +31,16 @@
  * @brief     Detection class Implementation
  */
 
+#include "../include/irona/Detection.hpp"
+#include "../include/irona/IDetection.hpp"
 
+
+Detection::Detection() {
+
+    tagSub = handler.subscribe("/ironaTags/aruco_detected",10, &Detection::detectionCallback, this);
+}
+
+void Detection::detectionCallback(const std_msgs::Bool::ConstPtr& checkDetect) {
+    	this->tagDetected = *checkDetect;
+
+}

@@ -194,6 +194,10 @@ include_directories(
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
+
+find_package(OpenCV)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
 add_executable(irona src/main.cpp src/Navigation.cpp)
 target_link_libraries(irona
   ${catkin_LIBRARIES}
