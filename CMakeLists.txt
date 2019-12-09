@@ -11,10 +11,11 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib
   move_base_msgs
   roscpp
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package( OpenCV REQUIRED highgui imgproc core videoio imgcodecs aruco)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -118,6 +119,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -195,13 +197,19 @@ include_directories(
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
-find_package(OpenCV)
-include_directories(${OpenCV_INCLUDE_DIRS})
 
-add_executable(irona src/main.cpp src/Navigation.cpp)
-target_link_libraries(irona
+add_executable(navigation src/Navigation.cpp)
+target_link_libraries(navigation
   ${catkin_LIBRARIES}
 )
+
+add_executable(detection src/Detection.cpp)
+target_link_libraries(detection
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
+)
+
+
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)

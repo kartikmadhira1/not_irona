@@ -39,6 +39,7 @@ typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseCl
 
 Navigation::Navigation() {
     pub = handler.advertise<geometry_msgs::PoseStamped>("boxPoses", 10, true);
+    sub = handler.subscribe("/boxPoses", 1, &Navigation::goalCheckCallback, this);
 
 }
 
@@ -106,7 +107,6 @@ void Navigation::goalTest(float x, float y) {
 }
 
 void Navigation::recieveGoalPose() {
-    sub = handler.subscribe("/boxPoses", 1, &Navigation::goalCheckCallback, this);
     // std::cout << "it's coming here\n";
     ros::spinOnce();
 
@@ -117,4 +117,15 @@ Navigation::~Navigation() {
 
 }
 
-
+int main(int argc, char* argv[]) {
+    ros::init(argc, argv, "navigation");
+    INavigation *p = new Navigation();
+    // p->goalTest(1,1);
+    // ros::Duration(30).sleep();
+    // p->recieveGoalPose();
+    // p->goalTest(5,3);
+    // p->recieveGoalPose();
+    ros::spin();
+    // delete p;
+    return 0;
+}

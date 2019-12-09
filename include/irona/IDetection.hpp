@@ -45,11 +45,11 @@ class IDetection {
     /**
      * @brief   Default constructor of the class
      */
-    IDetection();
-    /**
-     * @brief   Default desstructor of the class
-     */
-    virtual ~IDetection();
+    // IDetection();
+    // /**
+    //  * @brief   Default desstructor of the class
+    //  */
+    // virtual ~IDetection();
     /**
      * @brief   function to find the object using the ArUco markers
      * @param   map is the map of the environemnt
@@ -57,14 +57,14 @@ class IDetection {
      *          object
      * @return void
      */
-    virtual void setTag(int id) = 0;
+    virtual void setTagId(int id) = 0;
     /**
      * @brief   process the input ArUco tag that the bot needs to find
      * @param   objectTag is the ArUco marker associated with the particular
      *          object
      * @return  void
      */
-    virtual void detectTag(cv::Mat objectTag) = 0;
+    virtual bool detectTag() = 0;
     /**
      * @brief   function to publish the ROS messages for detection of object
      *          detection

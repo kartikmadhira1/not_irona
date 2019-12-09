@@ -1,9 +1,0 @@
-<launch>
-  <node 
-    pkg="irona" 
-    name="irona" 
-    type="irona"
-    output="screen"
-  />
-
-</launch>

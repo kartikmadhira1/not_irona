@@ -36,11 +36,71 @@
 
 
 Detection::Detection() {
-
-    tagSub = handler.subscribe("/ironaTags/aruco_detected",10, &Detection::detectionCallback, this);
+    tagSub = handler.subscribe("/ironaTags/arucoDetected", 10, &Detection::detectionCallback, this);
+    pub = handler.advertise<geometry_msgs::PoseStamped>("boxPoses", 10, true);
 }
 
 void Detection::detectionCallback(const std_msgs::Bool::ConstPtr& checkDetect) {
-    	this->tagDetected = *checkDetect;
+    this->tagDetected = *checkDetect;
+    if (detectTag()) {
+        publishBoxPoses();
+    }
+}
+
+bool Detection::detectTag() {
+    bool flag;
+	try{
+		flag = true;
+		listener.lookupTransform("/aruco_marker_frame", "/map", 
+                                ros::Time(0), transform);
+
+		tagPose.header.frame_id = "map";
+		tagPose.header.stamp = ros::Time::now();
+		
+		tagPose.pose.position.x = transform.getOrigin().x();
+		tagPose.pose.position.y = transform.getOrigin().y();
+		tagPose.pose.position.z = transform.getOrigin().z();
+
+		tagPose.pose.orientation.x = transform.getRotation().x();
+		tagPose.pose.orientation.y = transform.getRotation().y();
+		tagPose.pose.orientation.z = transform.getRotation().z();
+		tagPose.pose.orientation.w = transform.getRotation().w();
+	}
+	catch (const std::exception&){
+		flag = false;
+	}
+	return flag;
+}
+
+void Detection::setTagId(int id) {
+    ros::param::set("/aruco_single/marker_id", id);
+	std::cout << "idhar bhi chal raha\n";
+    ros::spinOnce();
+}
+
+void Detection::publishBoxPoses() {
+    pub.publish(tagPose);
+}
+
+Detection::~Detection() {
 
 }
+
+
+
+int main(int argc, char* argv[]) {
+
+    ros::init(argc, argv, "detection");
+	ROS_INFO_STREAM("Started Detection node");
+	std::cout << "chal raha \n";
+	IDetection *detect = new Detection();
+    detect->setTagId(1);
+	ros::spin();
+	return 0;
+}
+
+
+
+
+
+
