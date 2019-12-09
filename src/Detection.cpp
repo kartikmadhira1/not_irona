@@ -36,8 +36,8 @@
 
 
 Detection::Detection() {
-    tagSub = handler.subscribe("/ironaTags/arucoDetected", 10, &Detection::detectionCallback, this);
-    pub = handler.advertise<geometry_msgs::PoseStamped>("boxPoses", 10, true);
+    tagSub = handler.subscribe("/ironaTags/arucoDetected", 11, &Detection::detectionCallback, this);
+    pub = handler.advertise<geometry_msgs::PoseStamped>("boxPoses", 1, true);
 }
 
 void Detection::detectionCallback(const std_msgs::Bool::ConstPtr& checkDetect) {
@@ -51,7 +51,7 @@ bool Detection::detectTag() {
     bool flag;
 	try{
 		flag = true;
-		listener.lookupTransform("/aruco_marker_frame", "/map", 
+		listener.lookupTransform("/map", "/aruco_marker_frame", 
                                 ros::Time(0), transform);
 
 		tagPose.header.frame_id = "map";
@@ -59,12 +59,12 @@ bool Detection::detectTag() {
 		
 		tagPose.pose.position.x = transform.getOrigin().x();
 		tagPose.pose.position.y = transform.getOrigin().y();
-		tagPose.pose.position.z = transform.getOrigin().z();
+		tagPose.pose.position.z = 0;
 
-		tagPose.pose.orientation.x = transform.getRotation().x();
-		tagPose.pose.orientation.y = transform.getRotation().y();
+		tagPose.pose.orientation.x = 0;
+		tagPose.pose.orientation.y = 0;
 		tagPose.pose.orientation.z = transform.getRotation().z();
-		tagPose.pose.orientation.w = transform.getRotation().w();
+		tagPose.pose.orientation.w = 1;
 	}
 	catch (const std::exception&){
 		flag = false;
